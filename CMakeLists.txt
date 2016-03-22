@@ -16,8 +16,8 @@ project( TudatBundle )
 # Package options
 option(USE_CSPICE   "Build CSPICE libary, tudat with SPICE support and example applications." ON)
 option(USE_JSONCPP  "Build JSONCPP library and example applications." ON)
-option(USE_GSL      "Build GSL library and example applications." OFF)
-option(USE_NRLMSISE00 "Build NRLMISE-00 library and tudat with NRLMSISE support." OFF)
+option(USE_GSL      "Build GSL library and example applications." ON)
+option(USE_NRLMSISE00 "Build NRLMISE-00 library and tudat with NRLMSISE support." ON)
 option(USE_PAGMO    "Build PaGMO library." OFF)
 
 # Set root-directory for code to current source directory.
@@ -33,7 +33,7 @@ message(STATUS ${PROJECT_SOURCE_DIR})
 #
 # Boost
 #
-set(BoostComponents filesystem system thread regex date_time unit_test_framework)
+set(BoostComponents filesystem system thread regex date_time unit_test_framework timer chrono serialization)
 if(USE_PAGMO)
   list(APPEND BoostComponents serialization chrono atomic python python3)
 endif()
@@ -117,5 +117,11 @@ if(USE_CSPICE AND USE_JSONCPP)
 endif()
 if(USE_GSL)
     add_subdirectory( "${PROJECTROOT}/tudatExampleApplications/libraryExamples/GSL/")
+endif()
+if(USE_JSONCPP)
+    add_subdirectory( "${PROJECTROOT}/tudatExampleApplications/libraryExamples/JSON/")
+endif()
+if(USE_NRLMSISE00)
+    add_subdirectory( "${PROJECTROOT}/tudatExampleApplications/libraryExamples/NRLMSISE00/")
 endif()
 add_subdirectory( "${PROJECTROOT}/tudatExampleApplications/templateApplication/TemplateApplication")
